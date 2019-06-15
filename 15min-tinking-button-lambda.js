@@ -2,9 +2,9 @@ const https = require('https');
 const url = require('url');
 const defaultSlackUrl=process.env['SLACK_URL']
 const defaultMessage={
-    "SINGLE": "Single Click",
-    "DOUBLE": "Double Click",
-    "LONG": "Long Click"
+    "SINGLE": "15分たったよ！",
+    "DOUBLE": "今のなし！キャンセル！",
+    "LONG": "自分で解決できました！"
 }
 
 
@@ -21,11 +21,12 @@ exports.handler = (event, context, callback) => {
     if(text)
     {
         var text = event.placementInfo.attributes[event.deviceEvent.buttonClicked.clickType]
-      var payload = {'text': text}
+        var payload = {'text': text}
     }
     else {
         var text = defaultMessage[event.deviceEvent.buttonClicked.clickType]
-        var payload = {'text': text, "attachments":[{"text":JSON.stringify(event,null,2)}] }
+        var payload = {'text': text}
+        // var payload = {'text': text, "attachments":[{"text":JSON.stringify(event,null,2)}] }
     }
 
     /**
